@@ -18,9 +18,17 @@ namespace FancyCalculator
 
             while (!inputEquation.Trim().ToLower().Equals("exit"))
             {
-                EvaluateResult evalutationResult = calculator.Evaluate(inputEquation);
-                if (string.IsNullOrEmpty(evalutationResult.ErrorMessage)) Console.WriteLine($"Result: {evalutationResult.Result}");
-                else Console.WriteLine(evalutationResult.ErrorMessage);
+                if (inputEquation.Trim().ToLower().Equals("history"))
+                {
+                    if (calculator.History.Count > 0) calculator.History.ForEach(x => Console.WriteLine(x));
+                    else Console.WriteLine("No opperations have been performed.");
+                }
+                else
+                {
+                    EvaluateResult evalutationResult = calculator.Evaluate(inputEquation);
+                    if (string.IsNullOrEmpty(evalutationResult.ErrorMessage)) Console.WriteLine($"Result: {evalutationResult.Result.Value}");
+                    else Console.WriteLine(evalutationResult.ErrorMessage);
+                }
 
                 Console.WriteLine("Enter the opperation you would like to perform. Enter 'exit' to stop the application.");
                 inputEquation = Console.ReadLine();

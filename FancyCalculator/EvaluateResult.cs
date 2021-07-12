@@ -9,6 +9,6 @@ namespace FancyCalculator
     public class EvaluateResult
     {
         public string ErrorMessage { get; set; }
-        public decimal Result { get; set; }
+        public decimal? Result { get; set; }
     }
 }

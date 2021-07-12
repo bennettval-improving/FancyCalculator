@@ -10,6 +10,7 @@ namespace FancyCalculator
     {
         private string _errorMessage;
         private decimal? _result;
+        public List<string> History { get; private set; } = new List<string>();
 
         public EvaluateResult Evaluate(string input)
         {
@@ -39,6 +40,7 @@ namespace FancyCalculator
                     return GetEvaluateResult();
                 }
                 Calculate(firstNumber, secondNumber, inputs[1]);
+                AddHistoryItem(input);
                 return GetEvaluateResult();
             }
             else
@@ -49,8 +51,14 @@ namespace FancyCalculator
                     return GetEvaluateResult();
                 }
                 Calculate(_result.Value, secondNumber, inputs[0]);
+                AddHistoryItem(input);
                 return GetEvaluateResult();
             }
+        }
+
+        private void AddHistoryItem(string input)
+        {
+            if (string.IsNullOrEmpty(_errorMessage)) History.Add($"{input} = {_result}");
         }
 
         private void Calculate(decimal firstNumber, decimal secondNumber, string opperation)
@@ -80,7 +88,7 @@ namespace FancyCalculator
             return new EvaluateResult
             {
                 ErrorMessage = _errorMessage,
-                Result = _result.HasValue ? _result.Value : 0
+                Result = _result
             };
         }
     }
