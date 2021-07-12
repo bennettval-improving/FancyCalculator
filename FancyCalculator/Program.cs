@@ -8,9 +8,10 @@ namespace FancyCalculator
         {
             Console.WriteLine("A Fancy Console Calculator");
 
-            Console.WriteLine("Enter what you would like to see added");
+            Console.WriteLine("Enter what you would like to see added or subtracted");
             var inputEquation = Console.ReadLine();
             var inputs = inputEquation.Split(' ');
+
             decimal firstNumber;
             if (!decimal.TryParse(inputs[0], out firstNumber))
             {
@@ -25,7 +26,7 @@ namespace FancyCalculator
                 return;
             }
 
-            var result = firstNumber + secondNumber;
+            var result = inputs[1].Equals("+") ? firstNumber + secondNumber : firstNumber - secondNumber;
             Console.WriteLine($"Result: {result}");
         }
     }
