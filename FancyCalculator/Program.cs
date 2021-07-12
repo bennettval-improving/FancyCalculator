@@ -43,7 +43,7 @@ namespace FancyCalculator
                 case "/":
                     return firstNumber / secondNumber;
                 default:
-                    Console.WriteLine($"Opperation, {opperation} not supported");
+                    Console.WriteLine($"The opperation, {opperation}, is invalid. You must use one of the following: + - * /");
                     return null;
             }
         }
