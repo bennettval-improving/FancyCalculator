@@ -21,10 +21,27 @@ namespace CalculatorCore
             }
             if (!decimal.TryParse(inputs[2], out secondNumber))
             {
-                return new EvaluateResult { ErrorMessage = $"The first number, {inputs[2]}, was not a valid number." };
+                return new EvaluateResult { ErrorMessage = $"The second number, {inputs[2]}, was not a valid number." };
             }
 
-            return new EvaluateResult { Result = firstNumber + secondNumber };
+            return new EvaluateResult { Result = GetResult(firstNumber, secondNumber, inputs[1]) };
+        }
+
+        private decimal GetResult(decimal firstNumber, decimal secondNumber, string opperation)
+        {
+            switch (opperation)
+            {
+                case "+":
+                    return firstNumber + secondNumber;
+                case "-":
+                    return firstNumber - secondNumber;
+                case "*":
+                    return firstNumber * secondNumber;
+                case "/":
+                    return firstNumber / secondNumber;
+                default:
+                    return 0;
+            }
         }
     }
 }

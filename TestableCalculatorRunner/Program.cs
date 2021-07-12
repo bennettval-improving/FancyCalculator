@@ -13,7 +13,14 @@ namespace TestableCalculatorRunner
             var input = Console.ReadLine();
             var result = calculator.Evaluate(input);
 
-            Console.WriteLine(result);
+            if (string.IsNullOrEmpty(result.ErrorMessage)) Console.WriteLine(result);
+            else
+            {
+                Console.Beep();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(result.ErrorMessage);
+                Console.Beep();
+            }
         }
     }
 }
