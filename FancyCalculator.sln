@@ -3,12 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31229.75
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FancyCalculator", "FancyCalculator\FancyCalculator.csproj", "{6380751F-7FEF-46F1-AE77-0A0390084301}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FancyCalculator", "FancyCalculator\FancyCalculator.csproj", "{6380751F-7FEF-46F1-AE77-0A0390084301}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{204DEB80-C811-4391-85C0-FB4C8F9E2E5A}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CalculatorCore", "CalculatorCore\CalculatorCore.csproj", "{ED081088-B62B-4669-AA3F-9B80553072B0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestableCalculatorRunner", "TestableCalculatorRunner\TestableCalculatorRunner.csproj", "{BD1D4F1D-2F31-4CA6-8671-5D8219D3986F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorCore.Tests", "CalculatorCore.Tests\CalculatorCore.Tests.csproj", "{705E48B8-F192-4173-8DEF-23D311EFA948}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +26,18 @@ Global
 		{6380751F-7FEF-46F1-AE77-0A0390084301}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6380751F-7FEF-46F1-AE77-0A0390084301}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6380751F-7FEF-46F1-AE77-0A0390084301}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED081088-B62B-4669-AA3F-9B80553072B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED081088-B62B-4669-AA3F-9B80553072B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED081088-B62B-4669-AA3F-9B80553072B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED081088-B62B-4669-AA3F-9B80553072B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD1D4F1D-2F31-4CA6-8671-5D8219D3986F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD1D4F1D-2F31-4CA6-8671-5D8219D3986F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD1D4F1D-2F31-4CA6-8671-5D8219D3986F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD1D4F1D-2F31-4CA6-8671-5D8219D3986F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{705E48B8-F192-4173-8DEF-23D311EFA948}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{705E48B8-F192-4173-8DEF-23D311EFA948}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{705E48B8-F192-4173-8DEF-23D311EFA948}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{705E48B8-F192-4173-8DEF-23D311EFA948}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
