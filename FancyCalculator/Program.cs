@@ -7,34 +7,36 @@ namespace FancyCalculator
         static void Main(string[] args)
         {
             Console.WriteLine("A Fancy Console Calculator");
-            string inputEquation = string.Empty;
 
-            Console.WriteLine("Enter what you would like to see added or subtracted");
-            inputEquation = Console.ReadLine();
+            Console.WriteLine("Enter the opperation you would like to perform. Enter 'exit' to stop the application.");
+            string inputEquation = Console.ReadLine();
 
-            while (!inputEquation.Equals("exit"))
+            while (!inputEquation.Trim().ToLower().Equals("exit"))
             {
                 var inputs = inputEquation.Split(' ');
-
-                decimal firstNumber;
-                if (!decimal.TryParse(inputs[0], out firstNumber))
+                if (inputs.Length == 3)
                 {
-                    Console.WriteLine($"The first number, {inputs[0]}, was not a valid number.");
-                    return;
+                    decimal firstNumber;
+                    if (!decimal.TryParse(inputs[0], out firstNumber))
+                    {
+                        Console.WriteLine($"The first number, {inputs[0]}, was not a valid number.");
+                        return;
+                    }
+
+                    decimal secondNumber;
+                    if (!decimal.TryParse(inputs[2], out secondNumber))
+                    {
+                        Console.WriteLine($"The second number, {inputs[2]}, was not a valid number.");
+                        return;
+                    }
+
+                    var result = Calculate(firstNumber, secondNumber, inputs[1]);
+                    if (result.HasValue) Console.WriteLine($"Result: {result}");
+                    else return;
                 }
+                else Console.WriteLine("The opperation must be in form '<number> <opperation> <number>'. Please try again.");
 
-                decimal secondNumber;
-                if (!decimal.TryParse(inputs[2], out secondNumber))
-                {
-                    Console.WriteLine($"The second number, {inputs[2]}, was not a valid number.");
-                    return;
-                }
-
-                var result = Calculate(firstNumber, secondNumber, inputs[1]);
-                if (result.HasValue) Console.WriteLine($"Result: {result}");
-                else return;
-
-                Console.WriteLine("Enter what you would like to see added or subtracted");
+                Console.WriteLine("Enter the opperation you would like to perform. Enter 'exit' to stop the application.");
                 inputEquation = Console.ReadLine();
             }
         }
