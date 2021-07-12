@@ -26,8 +26,26 @@ namespace FancyCalculator
                 return;
             }
 
-            var result = inputs[1].Equals("+") ? firstNumber + secondNumber : firstNumber - secondNumber;
-            Console.WriteLine($"Result: {result}");
+            var result = Calculate(firstNumber, secondNumber, inputs[1]);
+            if (result.HasValue) Console.WriteLine($"Result: {result}");
+        }
+
+        static decimal? Calculate(decimal firstNumber, decimal secondNumber, string opperation)
+        {
+            switch (opperation)
+            {
+                case "+":
+                    return firstNumber + secondNumber;
+                case "-":
+                    return firstNumber - secondNumber;
+                case "*":
+                    return firstNumber * secondNumber;
+                case "/":
+                    return firstNumber / secondNumber;
+                default:
+                    Console.WriteLine($"Opperation, {opperation} not supported");
+                    return null;
+            }
         }
     }
 }
