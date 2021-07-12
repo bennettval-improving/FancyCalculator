@@ -10,7 +10,7 @@ namespace FancyCalculator
     {
         private string _errorMessage;
         private decimal? _result;
-        public List<string> History { get; private set; } = new List<string>();
+        public List<HistoryItem> History { get; private set; } = new List<HistoryItem>();
 
         public EvaluateResult Evaluate(string input)
         {
@@ -58,7 +58,7 @@ namespace FancyCalculator
 
         private void AddHistoryItem(string input)
         {
-            if (string.IsNullOrEmpty(_errorMessage)) History.Add($"{input} = {_result}");
+            if (string.IsNullOrEmpty(_errorMessage)) History.Add(new HistoryItem { Input = input, Result = _result.Value.ToString() });
         }
 
         private void Calculate(decimal firstNumber, decimal secondNumber, string opperation)

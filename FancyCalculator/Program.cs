@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FancyCalculator
 {
@@ -20,7 +21,12 @@ namespace FancyCalculator
             {
                 if (inputEquation.Trim().ToLower().Equals("history"))
                 {
-                    if (calculator.History.Count > 0) calculator.History.ForEach(x => Console.WriteLine(x));
+                    if (calculator.History.Count > 0)
+                    {
+                        int leftMax = calculator.History.OrderByDescending(x => x.Input.Length).ToList().FirstOrDefault().Input.Length + 5;
+                        int rightMax = calculator.History.OrderByDescending(x => x.Result.Length).ToList().FirstOrDefault().Result.Length + 5;
+                        calculator.History.ForEach(x => Console.WriteLine("{0,-" + leftMax + "} {1,-" + rightMax + "}", x.Input, $"= {x.Result}"));
+                    }
                     else Console.WriteLine("No opperations have been performed.");
                 }
                 else
