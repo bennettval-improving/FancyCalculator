@@ -8,21 +8,20 @@ namespace FancyCalculator
         {
             Console.WriteLine("A Fancy Console Calculator");
 
-            Console.WriteLine("Enter a number");
-            var inputOne = Console.ReadLine();
+            Console.WriteLine("Enter what you would like to see added");
+            var inputEquation = Console.ReadLine();
+            var inputs = inputEquation.Split(' ');
             decimal firstNumber;
-            if (!decimal.TryParse(inputOne, out firstNumber))
+            if (!decimal.TryParse(inputs[0], out firstNumber))
             {
-                Console.WriteLine($"The first number, {inputOne}, was not a valid number.");
+                Console.WriteLine($"The first number, {inputs[0]}, was not a valid number.");
                 return;
             }
 
-            Console.WriteLine("Enter a second number and I will add it to the first");
             decimal secondNumber;
-            var inputTwo = Console.ReadLine();
-            if (!decimal.TryParse(inputTwo, out secondNumber))
+            if (!decimal.TryParse(inputs[2], out secondNumber))
             {
-                Console.WriteLine($"The first number, {inputTwo}, was not a valid number.");
+                Console.WriteLine($"The second number, {inputs[2]}, was not a valid number.");
                 return;
             }
 
