@@ -10,6 +10,7 @@ namespace FancyCalculator
     {
         private string _errorMessage;
         private decimal? _result;
+        private decimal? _previousResult;
         public List<HistoryItem> History { get; private set; } = new List<HistoryItem>();
 
         public EvaluateResult Evaluate(string input)
@@ -58,7 +59,11 @@ namespace FancyCalculator
 
         private void AddHistoryItem(string input)
         {
-            if (string.IsNullOrEmpty(_errorMessage)) History.Add(new HistoryItem { Input = input, Result = _result.Value.ToString() });
+            if (string.IsNullOrEmpty(_errorMessage))
+            {
+                if (input.Split(' ').Length == 2) History.Add(new HistoryItem { Input = $"_{_previousResult.Value}_ {input}", Result = _result.Value.ToString() });
+                else History.Add(new HistoryItem { Input = input, Result = _result.Value.ToString() });
+            }
         }
 
         private void Calculate(decimal firstNumber, decimal secondNumber, string opperation)
@@ -66,15 +71,19 @@ namespace FancyCalculator
             switch (opperation)
             {
                 case "+":
+                    _previousResult = _result;
                     _result = firstNumber + secondNumber;
                     break;
                 case "-":
+                    _previousResult = _result;
                     _result = firstNumber - secondNumber;
                     break;
                 case "*":
+                    _previousResult = _result;
                     _result = firstNumber * secondNumber;
                     break;
                 case "/":
+                    _previousResult = _result;
                     _result = firstNumber / secondNumber;
                     break;
                 default:
