@@ -20,6 +20,7 @@ namespace TestableCalculatorRunner
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(result.ErrorMessage);
                 Console.Beep();
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
     }

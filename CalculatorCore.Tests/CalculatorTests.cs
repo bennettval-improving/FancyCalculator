@@ -14,7 +14,7 @@ namespace CalculatorCore.Tests
         }
 
         [TestMethod]
-        public void Calculator_Evaluate_AddTwoNumbers()
+        public void Calculator_Evaluate_ShouldReturnResult_AddTwoNumbers()
         {
             // arrange
             var input = "1 + 2";
@@ -59,7 +59,7 @@ namespace CalculatorCore.Tests
         }
 
         [TestMethod]
-        public void Calculator_Evaluate_SubtractTwoNumbers()
+        public void Calculator_Evaluate_ShouldReturnResult_SubtractTwoNumbers()
         {
             // arrange
             var input = "3 - 2";
@@ -74,7 +74,7 @@ namespace CalculatorCore.Tests
         }
 
         [TestMethod]
-        public void Calculator_Evaluate_MultiplyTwoNumbers()
+        public void Calculator_Evaluate_ShouldReturnResult_MultiplyTwoNumbers()
         {
             // arrange
             var input = "3 * 2";
@@ -89,7 +89,7 @@ namespace CalculatorCore.Tests
         }
 
         [TestMethod]
-        public void Calculator_Evaluate_DivideTwoNumbers()
+        public void Calculator_Evaluate_ShouldReturnResult_DivideTwoNumbers()
         {
             // arrange
             var input = "10 / 5";
@@ -101,6 +101,36 @@ namespace CalculatorCore.Tests
             // assert 
             Assert.IsNotNull(result);
             Assert.AreEqual(expected, result.Result);
+        }
+
+        [TestMethod]
+        public void Calculator_Evaluate_ShouldReturnErrorWhenInvalidOpperator()
+        {
+            // arrange
+            var input = "10 plus 5";
+            var expected = "The opperation, plus, is invalid.You must use one of the following: + - * /";
+
+            // act
+            var result = _target.Evaluate(input);
+
+            // assert 
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result.ErrorMessage);
+        }
+
+        [TestMethod]
+        public void Calculator_Evaluate_ShouldReturnErrorWhenInputDoesNotHaveRightNumberOfPieces()
+        {
+            // arrange
+            var input = "10 +";
+            var expected = "The opperation must be in form '<number> <opperation> <number>'.";
+
+            // act
+            var result = _target.Evaluate(input);
+
+            // assert 
+            Assert.IsNotNull(result);
+            Assert.AreEqual(expected, result.ErrorMessage);
         }
     }
 }
