@@ -19,15 +19,9 @@ namespace FancyCalculator
 
             while (!inputEquation.Trim().ToLower().Equals("exit"))
             {
-                if (inputEquation.Trim().ToLower().Equals("history"))
+                if (inputEquation.Trim().ToLower().Contains("history"))
                 {
-                    if (calculator.History.Count > 0)
-                    {
-                        int leftMax = calculator.History.OrderByDescending(x => x.Input.Length).ToList().FirstOrDefault().Input.Length + 5;
-                        int rightMax = calculator.History.OrderByDescending(x => x.Result.Length).ToList().FirstOrDefault().Result.Length + 5;
-                        calculator.History.ForEach(x => Console.WriteLine("{0,-" + leftMax + "} {1,-" + rightMax + "}", x.Input, $"= {x.Result}"));
-                    }
-                    else Console.WriteLine("No opperations have been performed.");
+                    PrintHistory(calculator, inputEquation);
                 }
                 else
                 {
@@ -39,6 +33,24 @@ namespace FancyCalculator
                 Console.WriteLine("Enter the opperation you would like to perform. Enter 'exit' to stop the application.");
                 inputEquation = Console.ReadLine();
             }
+        }
+
+        static void PrintHistory(Calculator calculator, string input)
+        {
+            if (calculator.History.Count > 0)
+            {
+                var inputs = input.Split(" ");
+                var filteredHistory = calculator.History;
+                if (inputs.Length > 1)
+                {
+                    filteredHistory = filteredHistory.Where(x => x.Input.Contains(inputs[1])).ToList();
+                }
+
+                int leftMax = filteredHistory.OrderByDescending(x => x.Input.Length).ToList().FirstOrDefault().Input.Length + 5;
+                int rightMax = filteredHistory.OrderByDescending(x => x.Result.Length).ToList().FirstOrDefault().Result.Length + 5;
+                filteredHistory.ForEach(x => Console.WriteLine("{0,-" + leftMax + "} {1,-" + rightMax + "}", x.Input, $"= {x.Result}"));
+            }
+            else Console.WriteLine("No opperations have been performed.");
         }
     }
 }
