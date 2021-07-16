@@ -1,0 +1,178 @@
+﻿@model Calculations.Web.Models.Calculator.IndexViewModel
+
+@if (Model != null || !string.IsNullOrWhiteSpace(Model.CurrentUsername))
+{
+    <div class="text-center">
+        <h3 class="display-4">Hello, @Model.CurrentUsername</h3>
+        <p>Make a Calculation!</p>
+        <br />
+        <br />
+        <form class="text-left" method="post">
+            <div class="form-group">
+                <label>Equation</label>
+                <input class="form-control" type="text" name="equation" placeholder="Enter equation here" />
+            </div>
+            <button class="btn btn-primary" type="submit">Calculate</button>
+        </form>
+
+        <br />
+        <br />
+        <h3>Result</h3>
+        @if (string.IsNullOrWhiteSpace(Model.ErrorMessage) && Model.Result.HasValue)
+        {
+            <div class="alert alert-success">
+                <p>@Model.Equation = <b>@Model.Result</b></p>
+            </div>
+        }
+        else if (!string.IsNullOrWhiteSpace(Model.ErrorMessage))
+        {
+            <div class="alert alert-danger">
+                <p id="error-message">@Model.ErrorMessage</p>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-primary">
+                <p>Make a calculation to see a result!</p>
+            </div>
+        }
+
+        <div id="accordion">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            History
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    @if (Model.History != null)
+                    {
+                        <div class="card-body">
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label id="all-filter" class="btn btn-outline-warning active">
+                                    <input type="radio" name="options" id="option1" autocomplete="off" onclick="filterHistory()" checked> All
+                                </label>
+                                <label id="addition-filter" class="btn btn-outline-warning" aria-selected="true">
+                                    <input type="radio" name="options" id="option2" autocomplete="off" onclick="filterHistory('addition')"> Addition
+                                </label>
+                                <label id="subtraction-filter" class="btn btn-outline-warning">
+                                    <input type="radio" name="options" id="option3" autocomplete="off"> Subtraction
+                                </label>
+                                <label id="multiplication-filter" class="btn btn-outline-warning">
+                                    <input type="radio" name="options" id="option3" autocomplete="off"> Multiplication
+                                </label>
+                                <label id="division-filter" class="btn btn-outline-warning">
+                                    <input type="radio" name="options" id="option3" autocomplete="off"> Division
+                                </label>
+                            </div>
+                        </div>
+
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Equation</th>
+                                    <th></th>
+                                    <th scope="col">Result</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-body">
+                                @foreach (var item in Model.History)
+                                {
+                                    <tr>
+                                        <td>@item.Equation</td>
+                                        <td>=</td>
+                                        <td>@item.Result</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <div class="card-body">
+                            There is no History to show.
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center alert alert-primary">
+        <h5>Please naviaget to Home and enter a username!</h5>
+    </div>
+}
+
+<script>
+    var allFilter = document.querySelector('#all-filter');
+    var additionFilter = document.querySelector('#addition-filter');
+    var subtractionFilter = document.querySelector('#subtraction-filter');
+    var multiplicationFilter = document.querySelector('#multiplication-filter');
+    var divisionFilter = document.querySelector('#division-filter');
+    var tableBody = document.querySelector('#table-body');
+
+    allFilter.addEventListener('click', () => {
+        filterHistory('');
+    });
+
+    additionFilter.addEventListener('click', () => {
+        filterHistory('addition');
+    });
+
+    subtractionFilter.addEventListener('click', () => {
+        filterHistory('subtraction');
+    });
+
+    multiplicationFilter.addEventListener('click', () => {
+        filterHistory('multiplication');
+    });
+
+    divisionFilter.addEventListener('click', () => {
+        filterHistory('division');
+    });
+
+    function filterHistory(filterType) {
+        fetch('/calculator/filter/' + filterType)
+            .then(response => response.json())
+            .then(data => {
+                addTableData(data);
+            });
+    }
+
+    function addTableData(data) {
+        console.log(data);
+        tableBody.textContent = '';
+        if (data != null && data.length > 0) {
+            data.forEach(item => {
+                var equationData = document.createElement('td');
+                equationData.textContent = item.equation;
+
+                var equalsData = document.createElement('td');
+                equalsData.textContent = "=";
+
+                var resultData = document.createElement('td');
+                resultData.textContent = item.result;
+
+                var tableRow = document.createElement('tr');
+                tableRow.appendChild(equationData);
+                tableRow.appendChild(equalsData);
+                tableRow.appendChild(resultData);
+
+
+                tableBody.appendChild(tableRow);
+            });
+        } else {
+            var blankDiv = document.createElement('td');
+            var noHistoryDiv = document.createElement('td');
+            noHistoryDiv.textContent = 'There is no history to show.';
+            tableBody.appendChild(blankDiv);
+            tableBody.appendChild(noHistoryDiv);
+        }
+    }
+</script>
